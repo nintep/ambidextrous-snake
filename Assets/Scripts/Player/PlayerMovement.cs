@@ -71,6 +71,16 @@ public class PlayerMovement : MonoBehaviour
     public void StartMovement()
     {
         gameStarted = true;
+        moveDirection = startDirection;
+    }
+
+    public void AddMoveInput(Vector2 input)
+    {
+        if (input != Vector2.zero)
+        {
+            moveDirection = input.normalized;
+        }
+        transform.position += (Vector3)moveDirection * movementSpeed * Time.deltaTime;
     }
 
     private void Update()
@@ -80,13 +90,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        Vector2 moveInput = moveAction.ReadValue<Vector2>();
-        if (moveInput != Vector2.zero)
-        {
-            moveDirection = moveInput.normalized;
-        }
-
-        transform.position += (Vector3)moveDirection * movementSpeed * Time.deltaTime;
+        AddMoveInput(moveAction.ReadValue<Vector2>());
     }
 
     private void OnObstacleHit()
