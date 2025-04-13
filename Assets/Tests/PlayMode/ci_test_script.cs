@@ -15,11 +15,11 @@ public class ci_test_script
         SceneManager.LoadScene(sceneIdx, LoadSceneMode.Single);
         while (SceneManager.GetActiveScene().buildIndex != sceneIdx)
         {
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
 
-        yield return new WaitForSeconds(0.01f);
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
+        yield return null;
     }
 
     [UnityTearDown]
@@ -27,7 +27,7 @@ public class ci_test_script
         yield return new WaitForSeconds(0.01f);
     }
 
-    [UnityTest, Timeout(10000)]
+    [UnityTest, Timeout(5000)]
     public IEnumerator ci_TestSceneContainsPlayer()
     {
         Debug.Log("--- Running ci_TestSceneContainsPlayer");
@@ -35,6 +35,6 @@ public class ci_test_script
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
     }
 }
