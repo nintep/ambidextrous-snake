@@ -30,7 +30,9 @@ public class PlayerMovementTest
 
     [UnityTest]
     public IEnumerator TestSceneContainsPlayer()
-    {        
+    {
+        Debug.Log("--- Running TestSceneContainsPlayer");
+
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
@@ -40,6 +42,8 @@ public class PlayerMovementTest
     [UnityTest]
     public IEnumerator PlayerStaysStillBeforeStarted()
     {
+        Debug.Log("--- Running PlayerStaysStillBeforeStarted");
+
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
@@ -52,6 +56,8 @@ public class PlayerMovementTest
     [UnityTest]
     public IEnumerator PlayerMovesUpAfterStarted()
     {
+        Debug.Log("--- Running PlayerMovesUpAfterStarted");
+
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
@@ -68,6 +74,8 @@ public class PlayerMovementTest
     [UnityTest]
     public IEnumerator PlayerMoveDirectionChangesOnInput()
     {
+        Debug.Log("--- Running PlayerMoveDirectionChangesOnInput");
+
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
