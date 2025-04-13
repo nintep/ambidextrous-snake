@@ -9,13 +9,13 @@ using UnityEditor.SceneManagement;
 public class MainSceneContentTests
 {
     // Index of scene used for testing
-    private int sceneIdx = 0;
+    private string scenePath = "Assets/Scenes/Main.unity";
 
     [UnitySetUp]
     public IEnumerator Setup() {
-        EditorSceneManager.OpenScene(EditorSceneManager.GetSceneByBuildIndex(sceneIdx).path, OpenSceneMode.Single);
+        EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         
-        while (EditorSceneManager.GetActiveScene().buildIndex != sceneIdx)
+        while (EditorSceneManager.GetActiveScene().name != "Main")
         {
             yield return null;
         }
