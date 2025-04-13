@@ -25,10 +25,10 @@ public class PlayerMovementTest
 
     [UnityTearDown]
     public IEnumerator Teardown() {
-        yield return null;
+        yield return new WaitForEndOfFrame();
     }
 
-    [UnityTest]
+    [UnityTest, Timeout(10000)]
     public IEnumerator TestSceneContainsPlayer()
     {
         Debug.Log("--- Running TestSceneContainsPlayer");
@@ -36,10 +36,10 @@ public class PlayerMovementTest
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
-        yield return null;
+        yield return new WaitForEndOfFrame();
     }
 
-    [UnityTest]
+    [UnityTest, Timeout(10000)]
     public IEnumerator PlayerStaysStillBeforeStarted()
     {
         Debug.Log("--- Running PlayerStaysStillBeforeStarted");
@@ -48,12 +48,14 @@ public class PlayerMovementTest
         Assert.IsNotNull(player);
 
         Vector3 playerStartPosition = player.transform.position;
-        yield return null;
+
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
 
         Assert.AreEqual(playerStartPosition, player.transform.position);
     }
 
-    [UnityTest]
+    [UnityTest, Timeout(10000)]
     public IEnumerator PlayerMovesUpAfterStarted()
     {
         Debug.Log("--- Running PlayerMovesUpAfterStarted");
@@ -65,13 +67,14 @@ public class PlayerMovementTest
         player.SetStartDirection(Vector2.up);
         player.StartMovement();
 
-        yield return null;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
 
         Assert.AreEqual(player.transform.position.x, playerStartPosition.x);
         Assert.Greater(player.transform.position.y, playerStartPosition.y);
     }
 
-    [UnityTest]
+    [UnityTest, Timeout(10000)]
     public IEnumerator PlayerMoveDirectionChangesOnInput()
     {
         Debug.Log("--- Running PlayerMoveDirectionChangesOnInput");
@@ -83,7 +86,8 @@ public class PlayerMovementTest
         player.SetStartDirection(Vector2.left);
         player.StartMovement();
 
-        yield return null;
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
 
         // Check that player moved left
         Assert.AreEqual(player.transform.position.y, playerStartPosition.y);
@@ -91,64 +95,10 @@ public class PlayerMovementTest
 
         playerStartPosition = player.transform.position;
         player.AddMoveInput(Vector2.down);
-        yield return null;
+        yield return new WaitForEndOfFrame();
 
         // Check that player moved down
         Assert.AreEqual(player.transform.position.x, playerStartPosition.x);
         Assert.Less(player.transform.position.y, playerStartPosition.y);
-    }
-
-
-    /* private PlayerMovement player;
-
-    private IEnumerator SetupMainScene()
-    {
-        SceneManager.LoadScene("Assets/Scenes/Main.unity", LoadSceneMode.Single);
-        while (SceneManager.GetActiveScene().buildIndex > 0)
-        {
-            yield return null;
-        }
-
-        player = GameObject.FindFirstObjectByType<PlayerMovement>();
-    }
-
-    [UnityTest]
-    public IEnumerator LoadMainScene()
-    {
-        SceneManager.LoadScene("Assets/Scenes/Main.unity", LoadSceneMode.Single);
-        while (SceneManager.GetActiveScene().buildIndex > 0)
-        {
-            yield return null;
-        }
-    }
-
-    [UnityTest]
-    public IEnumerator PlayerStaysStillBeforeStarted()
-    {
-        yield return SetupMainScene();
-        Assert.IsNotNull(player);
-
-        Vector2 playerStartPosition = player.transform.position;
-        yield return null;
-
-        Assert.AreEqual(playerStartPosition, player.transform.position);
-    }
-
-    [UnityTest]
-    public IEnumerator PlayerMovesUpAfterStarted()
-    {
-        Assert.IsNotNull(player);
-
-        Vector2 playerStartPosition = player.transform.position;
-        player.SetStartDirection(Vector2.up);
-        player.StartMovement();
-
-        yield return null;
-
-        Assert.AreEqual(player.transform.position.x, playerStartPosition.x);
-        Assert.Greater(player.transform.position.y, playerStartPosition.y);
-    } */
-
-
-    
+    }    
 }
