@@ -3,10 +3,9 @@ on:
   push:
     branches:
       - 'ci-integration'
-
   pull_request:
     branches:
-      - 'ci-integration'
+      - 'main'
 
 jobs:
   test:

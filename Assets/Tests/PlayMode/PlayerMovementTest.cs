@@ -15,40 +15,28 @@ public class PlayerMovementTest
         SceneManager.LoadScene(sceneIdx, LoadSceneMode.Single);
         while (SceneManager.GetActiveScene().buildIndex != sceneIdx)
         {
-            yield return new WaitForSeconds(0.01f);
+            yield return null;
         }
 
         // A few extra frames for setup
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
+        yield return null;
     }
 
     [UnityTearDown]
     public IEnumerator Teardown() {
-        yield return new WaitForSeconds(0.01f);
-    }
-
-    [UnityTest, Timeout(5000)]
-    public IEnumerator TestSceneContainsPlayer()
-    {
-        Debug.Log("--- Running TestSceneContainsPlayer");
-
-        PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
-        Assert.IsNotNull(player);
-
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
     }
 
     [UnityTest, Timeout(5000)]
     public IEnumerator PlayerStaysStillBeforeStarted()
     {
-        Debug.Log("--- Running PlayerStaysStillBeforeStarted");
-
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
         Vector3 playerStartPosition = player.transform.position;
 
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
 
         Assert.AreEqual(playerStartPosition, player.transform.position);
     }
@@ -56,8 +44,6 @@ public class PlayerMovementTest
     [UnityTest, Timeout(5000)]
     public IEnumerator PlayerMovesUpAfterStarted()
     {
-        Debug.Log("--- Running PlayerMovesUpAfterStarted");
-
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
@@ -65,7 +51,7 @@ public class PlayerMovementTest
         player.SetStartDirection(Vector2.up);
         player.StartMovement();
 
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
 
         Assert.AreEqual(player.transform.position.x, playerStartPosition.x);
         Assert.Greater(player.transform.position.y, playerStartPosition.y);
@@ -74,8 +60,6 @@ public class PlayerMovementTest
     [UnityTest, Timeout(5000)]
     public IEnumerator PlayerMoveDirectionChangesOnInput()
     {
-        Debug.Log("--- Running PlayerMoveDirectionChangesOnInput");
-
         PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
         Assert.IsNotNull(player);
 
@@ -83,7 +67,7 @@ public class PlayerMovementTest
         player.SetStartDirection(Vector2.left);
         player.StartMovement();
 
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
 
         // Check that player moved left
         Assert.AreEqual(player.transform.position.y, playerStartPosition.y);
@@ -92,7 +76,7 @@ public class PlayerMovementTest
         playerStartPosition = player.transform.position;
         player.AddMoveInput(Vector2.down);
 
-        yield return new WaitForSeconds(0.01f);
+        yield return null;
 
         // Check that player moved down
         Assert.AreEqual(player.transform.position.x, playerStartPosition.x);
