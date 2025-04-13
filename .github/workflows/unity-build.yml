@@ -1,13 +1,12 @@
 on:
+  workflow_dispatch:
   push:
     branches:
-      - main
-      - 'ci-integration'
+      - 'ci-integration-build'
 
   pull_request:
     branches:
-      - 'main'
-      - 'ci-integration'
+      - 'ci-integration-build'
 
 jobs:
   build:
