@@ -24,7 +24,8 @@ public class Snake : MonoBehaviour
 
     private bool alive;
 
-    public SnakePath GetPath => path;
+    public SnakePath Path => path;
+    public PlayerType PlayerType => playerMovement.PlayerType;
     
     private void Awake()
     {
@@ -41,6 +42,8 @@ public class Snake : MonoBehaviour
         segments.Add(head);
         head.ObstacleCollision += OnObstacleHit;
         head.PickUpCollision += OnPickUpCollected;
+        head.SnakeCollision += (SnakeSegment hit) => OnSnakeHit(segments.IndexOf(head), hit);
+        head.SetType(PlayerType);
 
         segmentWaypoints = new Dictionary<int, Waypoint>();
         waypointDistance = 0.9f * segmentRadius;
@@ -130,7 +133,6 @@ public class Snake : MonoBehaviour
             {
                 segment.transform.position = waypoint.Position;
             }
-
         }
     }
 
@@ -158,6 +160,7 @@ public class Snake : MonoBehaviour
         SnakeSegment newSegment = GameObject.Instantiate(snakeSegmentPrefab);
         newSegment.transform.position = addPosition;
         newSegment.transform.localScale = new Vector3(2 * segmentRadius, 2 * segmentRadius, 1);
+        newSegment.SetType(PlayerType);
         segments.Add(newSegment);
 
         newSegment.ObstacleCollision += OnObstacleHit;

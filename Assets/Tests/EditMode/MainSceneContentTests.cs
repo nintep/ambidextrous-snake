@@ -4,6 +4,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using UnityEditor.SceneManagement;
+using System.Linq;
 
 
 public class MainSceneContentTests
@@ -26,17 +27,32 @@ public class MainSceneContentTests
     }
 
     [Test, Timeout(5000)]
-    public void SceneContainsPlayer()
+    public void SceneContainsTwoPlayerMovements()
     {
-        PlayerMovement player = GameObject.FindFirstObjectByType<PlayerMovement>();
-        Assert.IsNotNull(player);
+        PlayerMovement[] playerMovements = GameObject.FindObjectsByType<PlayerMovement>(FindObjectsSortMode.InstanceID);
+        Assert.AreEqual(2, playerMovements.Count());
     }
 
     [Test, Timeout(5000)]
-    public void SceneContainsSnakeSegment()
+    public void SceneContainsTwoSnakes()
     {
-        SnakeSegment segment = GameObject.FindFirstObjectByType<SnakeSegment>();
-        Assert.IsNotNull(segment);
+        Snake[] snakes = GameObject.FindObjectsByType<Snake>(FindObjectsSortMode.InstanceID);
+        Assert.AreEqual(2, snakes.Count());
+
+        PlayerType snake_1_type = snakes[0].GetComponent<PlayerMovement>().PlayerType;
+        PlayerType snake_2_type = snakes[1].GetComponent<PlayerMovement>().PlayerType;
+
+        Assert.AreNotEqual(snake_1_type, snake_2_type);
+    }
+
+    [Test, Timeout(5000)]
+    public void SceneContainsTwoSnakeSegments()
+    {
+        SnakeSegment[] segments = GameObject.FindObjectsByType<SnakeSegment>(FindObjectsSortMode.InstanceID);
+        Assert.AreEqual(2, segments.Count());
+
+        //Check that segments belong to different game objects
+        Assert.AreNotEqual(segments[0].gameObject, segments[1].gameObject);
     }
 
     [Test, Timeout(5000)]

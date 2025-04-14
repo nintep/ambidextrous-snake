@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerType playerType;
+    public PlayerType PlayerType;
 
     [SerializeField]
     private float movementSpeed = 2.0f;
@@ -14,25 +14,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private bool startAutomatically = false;
 
+    [SerializeField]
+    private PlayerInput input;
+
     private bool gameStarted;
     private bool playerAlive;
     private bool movementActive;
     private Vector2 startDirection = Vector2.right;
 
-    private PlayerInput input;
+    
     private InputAction moveAction;
     private Vector2 moveDirection;
 
     private void Awake()
     {
-        input = GetComponent<PlayerInput>();
         if (input == null)
         {
-            Debug.LogError("Player input component missing");
+            Debug.LogError("Player input missing");
             return;
         }
 
-        moveAction = playerType == PlayerType.Left ? input.actions["MoveLeftPawn"] : input.actions["MoveRightPawn"];
+        moveAction = PlayerType == PlayerType.Left ? input.actions["MoveLeftPawn"] : input.actions["MoveRightPawn"];
         moveAction.Enable();
 
         moveDirection = startDirection;
@@ -47,8 +49,8 @@ public class PlayerMovement : MonoBehaviour
     public void SetPlayerType(PlayerType type)
     {
         moveAction.Disable();
-        playerType = type;
-        moveAction = playerType == PlayerType.Left ? input.actions["MoveLeftPawn"] : input.actions["MoveRightPawn"];
+        PlayerType = type;
+        moveAction = PlayerType == PlayerType.Left ? input.actions["MoveLeftPawn"] : input.actions["MoveRightPawn"];
         moveAction.Enable();
     }
 

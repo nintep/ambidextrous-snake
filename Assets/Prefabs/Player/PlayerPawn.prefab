@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2878928755852757924}
   - component: {fileID: 1364229528126914299}
   - component: {fileID: 435875617944957251}
-  - component: {fileID: 5230996492936998800}
   m_Layer: 0
   m_Name: PlayerPawn
   m_TagString: Untagged
@@ -51,6 +50,7 @@ MonoBehaviour:
   playerType: 0
   movementSpeed: 2
   startAutomatically: 0
+  input: {fileID: 0}
 --- !u!114 &1364229528126914299
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,96 +80,6 @@ MonoBehaviour:
   WaypointGraphic: {fileID: 2946463700509459685, guid: a881025e25fb5144383dc172cdfda0dd, type: 3}
   RefreshRate: 0.1
   Visualise: 0
---- !u!114 &5230996492936998800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3453538030141482551}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 849e882eb2b6f5c4bb9def182c6ccec5, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2878928755852757924}
-        m_TargetAssemblyTypeName: PlayerMovement, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 4be683e4-e197-4e3f-bc37-bd1947d8d3e8
-    m_ActionName: Player/MoveLeftPawn[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 584a5071-76d6-48f2-8062-52331428be71
-    m_ActionName: Player/MoveRightPawn[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 44a65211-771b-494f-9169-56507909d819
-    m_ActionName: UI/Navigate[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4ffed83f-3d8d-45f4-ac8e-659babb1e8ff
-    m_ActionName: UI/Submit[/Keyboard/enter]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d4c15fd8-da8c-4356-a087-7d8a64286714
-    m_ActionName: UI/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 146466bd-0de0-48fe-8fda-6dbdf54e7369
-    m_ActionName: UI/Point[/Mouse/position]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c6e45d91-6b61-48ad-b787-d4444e394516
-    m_ActionName: UI/Click[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f988ad45-c053-4ea5-bb48-1498c47fa824
-    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4274207b-ed1f-46ee-b518-cd94bc582d91
-    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 7e707ef5-a1a1-4c96-b8ef-33eea8710157
-    m_ActionName: UI/RightClick[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: c3160ec3-d156-4078-bec4-8122edabc1e8
-    m_ActionName: UI/TrackedDevicePosition
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b205d7d0-eec9-45a8-ae2f-d5191256661d
-    m_ActionName: UI/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: Player
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1001 &7164441213310449650
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Tests/TestScenes/OneSnakeAndPickups.unity
     guid: 0796f1f71042f054ba35dce42bb0d9c7
+  - enabled: 1
+    path: Assets/Tests/TestScenes/TwoSnakesAndPickups.unity
+    guid: 7fbb1736aa601784086daaa99b3470fb
   m_configObjects: {}

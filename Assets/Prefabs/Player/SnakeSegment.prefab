@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6400893770126191699}
+  - component: {fileID: 7841160179885176285}
   - component: {fileID: 8255340368636011404}
   - component: {fileID: 6954184209585623686}
   - component: {fileID: 7961651443401725966}
-  - component: {fileID: 7841160179885176285}
   m_Layer: 7
   m_Name: SnakeSegment
   m_TagString: Untagged
@@ -35,6 +35,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7841160179885176285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2933506249978202815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4a9fbc236bc764eb26f3b43a7021e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftSnakeColor: {r: 0.20784315, g: 0.92549026, b: 0.5568628, a: 1}
+  rightSnakeColor: {r: 0.8867924, g: 0.2995015, b: 0.2995015, a: 1}
 --- !u!212 &8255340368636011404
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -149,15 +163,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &7841160179885176285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2933506249978202815}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b4a9fbc236bc764eb26f3b43a7021e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

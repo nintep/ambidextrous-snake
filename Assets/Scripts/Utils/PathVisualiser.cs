@@ -17,7 +17,7 @@ public class PathVisualiser : MonoBehaviour
     private void Start()
     {
         Snake snake = GetComponent<Snake>();
-        VisualisePath(snake.GetPath);
+        VisualisePath(snake.Path);
     }
 
     private void VisualisePath(SnakePath path)
