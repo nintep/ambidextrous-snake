@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovementTest
 {
     // Index of scene used for testing
-    private int sceneIdx = 0;
+    private int sceneIdx = 1;
 
     [UnitySetUp]
     public IEnumerator Setup() {

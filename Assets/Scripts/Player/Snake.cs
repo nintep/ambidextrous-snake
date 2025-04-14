@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Snake : MonoBehaviour
 {
+    public event Action SnakeDied;
+
     [SerializeField]
     private SnakeSegment snakeSegmentPrefab;
 
@@ -141,8 +142,10 @@ public class Snake : MonoBehaviour
         SnakeSegment newSegment = GameObject.Instantiate(snakeSegmentPrefab);
         newSegment.transform.position = addPosition;
         newSegment.transform.localScale = new Vector3(2 * segmentRadius, 2 * segmentRadius, 1);
-        newSegment.ObstacleCollision += OnObstacleHit;
         segments.Add(newSegment);
+
+        newSegment.ObstacleCollision += OnObstacleHit;
+        newSegment.SnakeCollision += (SnakeSegment hit) => OnSnakeHit(segments.IndexOf(newSegment), hit);
 
         // Set waypoint for new segment
         if (segments.Count == 2)
@@ -165,11 +168,30 @@ public class Snake : MonoBehaviour
     private void OnObstacleHit()
     {
         playerMovement.EndMovement();
+        SnakeDied?.Invoke();
     }
 
     private void OnPickUpCollected(PickUpItem item)
     {
         GameObject.Destroy(item.gameObject);
         StartCoroutine(AddSegment());
+    }
+
+    private void OnSnakeHit(int sourceSegment, SnakeSegment hitSegment)
+    {
+        // Check if hit self
+        if (segments.Contains(hitSegment))
+        {
+            //Ignore hits between adjacent segments
+            int hitIndex = segments.IndexOf(hitSegment);
+            if (Math.Abs(sourceSegment - hitIndex) > 1)
+            {
+                OnObstacleHit();
+            }
+        }
+        else
+        {
+            OnObstacleHit();
+        }
     }
 }

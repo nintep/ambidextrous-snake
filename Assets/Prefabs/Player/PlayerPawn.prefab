@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2058928278787959202}
   - component: {fileID: 2878928755852757924}
+  - component: {fileID: 1364229528126914299}
+  - component: {fileID: 435875617944957251}
   - component: {fileID: 5230996492936998800}
   m_Layer: 0
   m_Name: PlayerPawn
@@ -46,8 +48,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e674be405f24c974fb32d5125422baed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 2
   playerType: 0
+  movementSpeed: 2
+  startAutomatically: 0
+--- !u!114 &1364229528126914299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453538030141482551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a7b79fb16871ae43a98be07d7b45472, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  snakeSegmentPrefab: {fileID: 1133870200890311215}
+  playerMovement: {fileID: 2878928755852757924}
+--- !u!114 &435875617944957251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3453538030141482551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1230fa5dd24d7894d9be6223ca5dab4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WaypointGraphic: {fileID: 2946463700509459685, guid: a881025e25fb5144383dc172cdfda0dd, type: 3}
+  RefreshRate: 0.1
+  Visualise: 0
 --- !u!114 &5230996492936998800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,6 +227,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bb2bdb4b925e734d8d2b0091fbaedf7, type: 3}
+--- !u!114 &1133870200890311215 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7841160179885176285, guid: 6bb2bdb4b925e734d8d2b0091fbaedf7, type: 3}
+  m_PrefabInstance: {fileID: 7164441213310449650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b4a9fbc236bc764eb26f3b43a7021e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4303681661849590689 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6400893770126191699, guid: 6bb2bdb4b925e734d8d2b0091fbaedf7, type: 3}
