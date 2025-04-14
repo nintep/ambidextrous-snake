@@ -22,6 +22,8 @@ public class Snake : MonoBehaviour
     private Vector2 latestHeadPosition;
     private float waypointDistance;
 
+    private bool alive;
+
     public SnakePath GetPath => path;
     
     private void Awake()
@@ -48,10 +50,17 @@ public class Snake : MonoBehaviour
     {
         latestHeadPosition = transform.position;
         path.AddWaypoint(latestHeadPosition);
+
+        alive = true;
     }
 
     private void Update()
     {
+        if (!alive)
+        {
+            return;
+        }
+
         if (Vector2.Distance(path.GetNewestWaypoint().Position, transform.position) > waypointDistance)
         {
             path.AddWaypoint(transform.position);
@@ -81,27 +90,21 @@ public class Snake : MonoBehaviour
                 else
                 {
                     Debug.LogError("Next waypoint not found");
+                    segmentWaypoints[i] = path.GetNewestWaypoint();
+                    waypoint = newWaypoint;
                 }
             }
 
+            // Calculate movement
             Vector2 segmentPosition = segment.transform.position;
             Vector2 nextSegmentPosition = segments[i - 1].transform.position;
 
-            // Maximum amount of movement
-            float headMoveDistance = Vector2.Distance(transform.position, latestHeadPosition);
-            float moveDistance = headMoveDistance;
+            float moveDistance = Vector2.Distance(transform.position, latestHeadPosition);
 
             float dToWaypoint = Vector2.Distance(segmentPosition, waypoint.Position);
-
             float dWaypointToNextSegment = Vector2.Distance(waypoint.Position, nextSegmentPosition);
 
-            // Don't move segment past waypoint
-            if (dToWaypoint < moveDistance)
-            {
-                moveDistance = dToWaypoint;
-            }
-
-            // Slow dowsn segments that are getting too close to the previous segment
+            // Slow down segments that are getting too close to the previous segment
             if (dToWaypoint + dWaypointToNextSegment < 1.95 * segmentRadius)
             {
                 moveDistance = 0;
@@ -110,11 +113,24 @@ public class Snake : MonoBehaviour
             // Give speed boost to segments, if they are lagging behind
             if (dToWaypoint + dWaypointToNextSegment > 2.05 * segmentRadius)
             {
-                moveDistance += 0.05f * segmentRadius;
+                moveDistance += 0.2f * segmentRadius;
+            }
+
+            // Don't move segment past waypoint
+            if (dToWaypoint < moveDistance)
+            {
+                moveDistance = dToWaypoint;
             }
 
             Vector2 moveDirection = (waypoint.Position - segmentPosition).normalized;
             segment.transform.position += (Vector3)(moveDistance * moveDirection);
+
+            // If segment is too far from next segment, skip to waypoint
+            if (Vector2.Distance(segment.transform.position, nextSegmentPosition) > 2.2 * segmentRadius)
+            {
+                segment.transform.position = waypoint.Position;
+            }
+
         }
     }
 
@@ -168,6 +184,7 @@ public class Snake : MonoBehaviour
     private void OnObstacleHit()
     {
         playerMovement.EndMovement();
+        alive = false;
         SnakeDied?.Invoke();
     }
 
