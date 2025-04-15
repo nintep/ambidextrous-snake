@@ -76,6 +76,10 @@ public class PlayerMovement : MonoBehaviour
         {
             moveDirection = input.normalized;
         }
+        
+        float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
         transform.position += (Vector3)moveDirection * movementSpeed * Time.deltaTime;
     }
 
