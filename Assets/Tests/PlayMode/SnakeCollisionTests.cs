@@ -154,4 +154,45 @@ public class SnakeCollisionTests
 
         snake.SnakeDied -= OnSnakeDeath;
     }
+
+    [UnityTest, Timeout(5000)]
+    public IEnumerator SnakeCollidesWithIncorrectPickUpType()
+    {
+        bool snakeDied = false;
+        void OnSnakeDeath()
+        {
+            snakeDied = true;
+        }
+
+        Snake snake = GameObject.FindFirstObjectByType<Snake>();
+        Assert.IsNotNull(snake);
+
+        snake.SnakeDied += OnSnakeDeath;
+        Assert.False(snakeDied);
+
+        PlayerMovement movement = snake.GetComponent<PlayerMovement>();
+        movement.SetStartDirection(Vector2.up);
+        movement.StartMovement();
+
+        // Add pickup item to snake's position with correct pickup type
+        PickUpItem item = GameObject.FindAnyObjectByType<PickUpItem>();
+        Assert.NotNull(item);
+        item.transform.position = snake.transform.position;
+        item.SetType(snake.PlayerType == PlayerType.Left ? PickUpType.Food_left : PickUpType.Food_right);
+
+        yield return new WaitForSeconds(0.5f);
+
+        Assert.False(snakeDied);
+
+        // Add pickup item to snake's position with incorrect pickup type
+        item = GameObject.FindAnyObjectByType<PickUpItem>();
+        Assert.NotNull(item);
+        item.transform.position = snake.transform.position;
+        item.SetType(snake.PlayerType == PlayerType.Left ? PickUpType.Food_right : PickUpType.Food_left);
+
+        yield return new WaitForSeconds(0.5f);
+
+        Assert.True(snakeDied);
+        snake.SnakeDied -= OnSnakeDeath;
+    }
 }

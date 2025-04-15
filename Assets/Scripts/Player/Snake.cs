@@ -21,8 +21,10 @@ public class Snake : MonoBehaviour
 
     private Vector2 latestHeadPosition;
     private float waypointDistance;
-
     private bool alive;
+
+    private bool segmentAdditionInProgress;
+    private Queue<Vector2> newSegmentQueue;
 
     public SnakePath Path => path;
     public PlayerType PlayerType => playerMovement.PlayerType;
@@ -47,6 +49,9 @@ public class Snake : MonoBehaviour
 
         segmentWaypoints = new Dictionary<int, Waypoint>();
         waypointDistance = 0.9f * segmentRadius;
+
+        newSegmentQueue = new Queue<Vector2>();
+        segmentAdditionInProgress = false;
     }
 
     private void Start()
@@ -64,9 +69,21 @@ public class Snake : MonoBehaviour
             return;
         }
 
+        // Update waypoints
         if (Vector2.Distance(path.GetNewestWaypoint().Position, transform.position) > waypointDistance)
         {
             path.AddWaypoint(transform.position);
+        }
+
+        // Check if there are new segments pending
+        if (newSegmentQueue.Count > 0)
+        {
+            // Check if previous addition is finished
+            if (!segmentAdditionInProgress)
+            {
+                Vector2 segmentPosition = newSegmentQueue.Dequeue();
+                StartCoroutine(AddSegment(segmentPosition));
+            }
         }
 
         MoveSegments();
@@ -136,10 +153,12 @@ public class Snake : MonoBehaviour
         }
     }
 
-    private IEnumerator AddSegment()
+    private IEnumerator AddSegment(Vector2 position)
     {
+        segmentAdditionInProgress = true;
+
         // Store position where new segment will be added
-        Vector2 addPosition = segments[0].transform.position;
+        Vector2 addPosition = position;
         Vector2 tailPosition = segments.Last().transform.position;
 
         // Wait until tail enters addition position
@@ -181,7 +200,8 @@ public class Snake : MonoBehaviour
         // Increase number of waypoints stored in snake path
         int increment = (int)Math.Ceiling(2 * segmentRadius / waypointDistance);
         path.IncreaseWaypointCount(increment);
-        
+
+        segmentAdditionInProgress = false;
     }
 
     private void OnObstacleHit()
@@ -193,8 +213,16 @@ public class Snake : MonoBehaviour
 
     private void OnPickUpCollected(PickUpItem item)
     {
+        // Check if pickup has wrong type
+        if (item.Type == PickUpType.Food_left && PlayerType == PlayerType.Right
+            || item.Type == PickUpType.Food_right && PlayerType == PlayerType.Left)
+        {
+            OnObstacleHit();
+            return;
+        }
+
         GameObject.Destroy(item.gameObject);
-        StartCoroutine(AddSegment());
+        newSegmentQueue.Enqueue(transform.position);
     }
 
     private void OnSnakeHit(int sourceSegment, SnakeSegment hitSegment)
